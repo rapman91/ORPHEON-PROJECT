@@ -1,0 +1,1 @@
+const visorData = {"events": [{"clon": "eco_liquido", "plataforma": "reddit", "fecha": "2025-05-21T20:00:00Z", "contenido": "el eco ya habl\u00f3. sin autor. sin pausa.", "url": "https://reddit.com/r/test/comments/example"}, {"clon": "flor_concreta", "plataforma": "nft_zora_simulado", "fecha": "2025-05-21T20:05:00Z", "contenido": "una flor en c\u00f3digo floreci\u00f3."}]};

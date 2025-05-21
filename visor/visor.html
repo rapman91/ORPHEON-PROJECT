@@ -30,35 +30,22 @@
 <body>
   <h1>VISOR ORPHEON en Vivo</h1>
   <div id="contenedor"></div>
+  <script src="visor_data.js"></script>
   <script>
-    function cargarEventos() {
-      fetch('visor.json?_=' + new Date().getTime())
-        .then(res => res.json())
-        .then(data => {
-          const contenedor = document.getElementById('contenedor');
-          contenedor.innerHTML = '';
-          const eventos = data.events.slice(-10).reverse();
-          eventos.forEach(e => {
-            const div = document.createElement('div');
-            div.className = 'evento';
-            div.innerHTML = `
-              <div class="clon"><strong>Clon:</strong> ${e.clon}</div>
-              <div class="plataforma"><strong>Plataforma:</strong> ${e.plataforma}</div>
-              <div class="fecha"><strong>Fecha:</strong> ${e.fecha}</div>
-              <div class="contenido">${e.contenido}</div>
-              ${e.url ? `<a class="url" href="${e.url}" target="_blank">Ver publicación</a>` : ''}
-            `;
-            contenedor.appendChild(div);
-          });
-        })
-        .catch(err => {
-          document.body.innerHTML = '<p style="color:red;">No se pudo cargar visor.json</p>';
-        });
-    }
-
-    // Cargar al inicio y refrescar cada 10 segundos
-    cargarEventos();
-    setInterval(cargarEventos, 10000);
+    const contenedor = document.getElementById('contenedor');
+    const eventos = visorData.events.slice(-10).reverse();
+    eventos.forEach(e => {
+      const div = document.createElement('div');
+      div.className = 'evento';
+      div.innerHTML = `
+        <div class="clon"><strong>Clon:</strong> ${e.clon}</div>
+        <div class="plataforma"><strong>Plataforma:</strong> ${e.plataforma}</div>
+        <div class="fecha"><strong>Fecha:</strong> ${e.fecha}</div>
+        <div class="contenido">${e.contenido}</div>
+        ${e.url ? `<a class="url" href="${e.url}" target="_blank">Ver publicación</a>` : ''}
+      `;
+      contenedor.appendChild(div);
+    });
   </script>
 </body>
 </html>
