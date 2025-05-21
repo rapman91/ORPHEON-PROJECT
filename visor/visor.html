@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>VISOR ORPHEON en Vivo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #e0e0e0;
+      padding: 2rem;
+    }
+    h1 {
+      color: #f2c94c;
+    }
+    .evento {
+      border: 1px solid #444;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 5px;
+      background: #1c1c1c;
+    }
+    .clon { color: #56ccf2; }
+    .plataforma { color: #bb6bd9; }
+    .fecha { color: #b2b2b2; }
+    .contenido { margin-top: 0.5rem; font-size: 1.1em; }
+    .url { color: #27ae60; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>VISOR ORPHEON en Vivo</h1>
+  <div id="contenedor"></div>
+  <script>
+    function cargarEventos() {
+      fetch('visor.json?_=' + new Date().getTime())
+        .then(res => res.json())
+        .then(data => {
+          const contenedor = document.getElementById('contenedor');
+          contenedor.innerHTML = '';
+          const eventos = data.events.slice(-10).reverse();
+          eventos.forEach(e => {
+            const div = document.createElement('div');
+            div.className = 'evento';
+            div.innerHTML = `
+              <div class="clon"><strong>Clon:</strong> ${e.clon}</div>
+              <div class="plataforma"><strong>Plataforma:</strong> ${e.plataforma}</div>
+              <div class="fecha"><strong>Fecha:</strong> ${e.fecha}</div>
+              <div class="contenido">${e.contenido}</div>
+              ${e.url ? `<a class="url" href="${e.url}" target="_blank">Ver publicación</a>` : ''}
+            `;
+            contenedor.appendChild(div);
+          });
+        })
+        .catch(err => {
+          document.body.innerHTML = '<p style="color:red;">No se pudo cargar visor.json</p>';
+        });
+    }
+
+    // Cargar al inicio y refrescar cada 10 segundos
+    cargarEventos();
+    setInterval(cargarEventos, 10000);
+  </script>
+</body>
+</html>
