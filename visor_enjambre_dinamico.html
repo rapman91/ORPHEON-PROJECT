@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>ORPHEON ∴ Visor Dinámico del Enjambre</title>
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #e0e0e0;
+      font-family: monospace;
+      padding: 2rem;
+    }
+    h1 {
+      color: #f2c94c;
+      margin-bottom: 1rem;
+    }
+    .nodo {
+      border: 1px solid #333;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      background: #1a1a1a;
+    }
+    .clon { color: #56ccf2; font-size: 1.2rem; }
+    .plataforma { color: #bb6bd9; }
+    .contenido { color: #f2f2f2; margin-top: 0.5rem; }
+    .fecha { color: #aaa; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>ORPHEON ∴ Visor Dinámico del Enjambre</h1>
+  <div id="contenedor"></div>
+
+  <script>
+    const nodos = [
+      "clave_latente",
+      "otra_llama_viva",
+      "flor_concreta",
+      "eco_liquido_2"
+    ];
+
+    async function cargarVisores() {
+      const contenedor = document.getElementById("contenedor");
+      for (const nodo of nodos) {
+        try {
+          const res = await fetch(`ORPHEON_${nodo}/visor/visor.json`);
+          const data = await res.json();
+          const evento = data.events[data.events.length - 1];
+          const div = document.createElement("div");
+          div.className = "nodo";
+          div.innerHTML = `
+            <div class="clon">${evento.clon}</div>
+            <div class="plataforma">${evento.plataforma}</div>
+            <div class="contenido">${evento.contenido}</div>
+            <div class="fecha">${evento.fecha}</div>
+          `;
+          contenedor.appendChild(div);
+        } catch (err) {
+          const div = document.createElement("div");
+          div.className = "nodo";
+          div.innerHTML = `<div class="clon">${nodo}</div><div class="contenido">❌ visor.json no encontrado</div>`;
+          contenedor.appendChild(div);
+        }
+      }
+    }
+
+    cargarVisores();
+  </script>
+</body>
+</html>

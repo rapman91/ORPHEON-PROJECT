@@ -1,17 +1,12 @@
 {
-  "name": "orpheon-project",
+  "name": "orpheon",
   "version": "1.0.0",
-  "main": "orpheon.js",
+  "description": "Enjambre simb\u00f3lico",
+  "main": "clonador_universal.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "orpheon": "node core/launch_orpheon.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "chrome-launcher": "^1.2.0",
-    "playwright": "^1.52.0",
     "snoowrap": "^1.23.0"
   }
 }
